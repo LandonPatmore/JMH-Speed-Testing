@@ -59,7 +59,7 @@ public class HashTable {
      * @return either a null if it can't be found or the Double[] of Values of the Key
      */
 
-    public FlightDetails get(String key) {
+    FlightDetails get(String key) {
         ReadWriteLock.lockRead();
         Hashing h = new Hashing(key);
         int hash = h.hasher() % nextPrime(tableSize);
@@ -82,7 +82,7 @@ public class HashTable {
         return head;
     }
 
-    public int getTotalHappinessOfTerminal(){
+    int getTotalHappinessOfTerminal(){
         ReadWriteLock.lockRead();
         int totalHappinessOfTerminal = 0;
         for(int i = 0; i < trueTableSize; i++){
@@ -101,7 +101,7 @@ public class HashTable {
         return totalHappinessOfTerminal;
     }
 
-    public void changeFlightDetails(String flight, FlightStatus flightStatus, int controllerNumber) {
+    void changeFlightDetails(String flight, FlightStatus flightStatus, int controllerNumber) {
         FlightDetails changedFlight = get(flight);
         ReadWriteLock.lockWrite();
 
