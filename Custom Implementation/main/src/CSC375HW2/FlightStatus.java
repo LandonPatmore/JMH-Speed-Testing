@@ -1,6 +1,9 @@
 package CSC375HW2;
 
-public enum FlightStatus {
+/**
+ * Enum that simulates the status of an aircraft at an airport.
+ */
+enum FlightStatus {
     ON_TIME,
     DELAYED,
     CANCELLED,

@@ -3,33 +3,25 @@ package CSC375HW2;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by landon on 2/21/17.
- */
-
-/**
  * Custom HashTable Implementation
  */
-public class HashTable {
+class HashTable {
     private FlightDetails[] HT;
     private int tableSize = 200;
     private AtomicInteger count = new AtomicInteger(0);
     private int trueTableSize;
 
     /**
-     * creates a new Array of linked lists
+     * Creates array of Flights
      */
-
     HashTable() {
         trueTableSize = nextPrime(tableSize);
         HT = new FlightDetails[nextPrime(trueTableSize)];
     }
 
     /**
-     * Puts a FlightDetail into the HashTable and will automatically turn collisions into a linked list
-     *
      * @param flightDetails takes a FlightDetail to put into the HashTable
      */
-
     void put(FlightDetails flightDetails) {
         ReadWriteLock.lockWrite();
 
@@ -55,13 +47,12 @@ public class HashTable {
     }
 
     /**
-     * @param key takes a String and checks to see if the key is within the HashTable
-     * @return either a null if it can't be found or the Double[] of Values of the Key
+     * @param flight flight identification
+     * @return either FlightDetails object or null
      */
-
-    FlightDetails get(String key) {
+    FlightDetails get(String flight) {
         ReadWriteLock.lockRead();
-        Hashing h = new Hashing(key);
+        Hashing h = new Hashing(flight);
         int hash = h.hasher() % nextPrime(tableSize);
 
         if (indexEmpty(hash)) {
@@ -71,9 +62,9 @@ public class HashTable {
 
         FlightDetails head = HT[hash];
 
-        while (!indexEmpty(hash) && !head.getFlightIdentification().equals(key)) {
+        while (!indexEmpty(hash) && !head.getFlightIdentification().equals(flight)) {
             head = head.getNext();
-            if(head == null){
+            if (head == null) {
                 ReadWriteLock.unlockRead();
                 return null;
             }
@@ -82,17 +73,20 @@ public class HashTable {
         return head;
     }
 
-    int getTotalHappinessOfTerminal(){
+    /**
+     * @return the total happiness of all flights at the airport
+     */
+    int getTotalHappinessOfTerminal() {
         ReadWriteLock.lockRead();
         int totalHappinessOfTerminal = 0;
-        for(int i = 0; i < trueTableSize; i++){
+        for (int i = 0; i < trueTableSize; i++) {
 
             FlightDetails head = HT[i];
 
-            while(head != null){
+            while (head != null) {
                 totalHappinessOfTerminal += head.getHappiness();
                 head = head.getNext();
-                if(head == null){
+                if (head == null) {
                     break;
                 }
             }
@@ -101,17 +95,22 @@ public class HashTable {
         return totalHappinessOfTerminal;
     }
 
+    /**
+     * @param flight           flight identification
+     * @param flightStatus     new status of the flight
+     * @param controllerNumber the controller who is going to change the flight
+     */
     void changeFlightDetails(String flight, FlightStatus flightStatus, int controllerNumber) {
         FlightDetails changedFlight = get(flight);
         ReadWriteLock.lockWrite();
 
-        if(changedFlight == null){
+        if (changedFlight == null) {
             System.out.println("Flight: " + flight + " could not be changed because it does not exist.");
             ReadWriteLock.unlockWrite();
             return;
         }
 
-        if(!changedFlight.setFlightStatus(flightStatus)){
+        if (!changedFlight.setFlightStatus(flightStatus)) {
             System.out.println("\nFlight: " + flight + " not changed because it is already: " + flightStatus + "\n");
             ReadWriteLock.unlockWrite();
             return;

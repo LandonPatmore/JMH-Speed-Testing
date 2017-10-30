@@ -1,32 +1,28 @@
-package CSC375HW2;
+package CSC375HW2JDK;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Class that simulates a Flight and its details.
+ * Custom class for storing keys and values in a custome HashTable
  */
-class FlightDetails {
+public class FlightDetails {
     private String flightIdentification;
     private FlightStatus flightStatus;
     private AtomicInteger flightHappiness;
+
     private FlightDetails next;
 
     /**
      *
-     * @param flightIdentification identification
-     * @param flightStatus status of the flight
+     * @param k key string
+     * @param v String values
      */
-    FlightDetails(String flightIdentification, FlightStatus flightStatus) {
-        this.flightIdentification = flightIdentification;
-        this.flightStatus = flightStatus;
+    FlightDetails(String k, FlightStatus v) {
+        this.flightIdentification = k;
+        this.flightStatus = v;
         flightHappiness = new AtomicInteger(100);
     }
 
-    /**
-     *
-     * @param flightStatus updated flight status
-     * @return true if the flight status can be updated or false because the flight already has that status currently
-     */
     boolean setFlightStatus(FlightStatus flightStatus) {
         if(this.flightStatus.equals(flightStatus)){
             return false;
@@ -36,27 +32,14 @@ class FlightDetails {
         return true;
     }
 
-    /**
-     *
-     * @return current flight happiness level
-     */
     int getHappiness(){
         return flightHappiness.get();
     }
 
-    /**
-     *
-     * @param status updated flight status
-     */
-    private void setFlightHappiness(FlightStatus status){
+    void setFlightHappiness(FlightStatus status){
         flightHappiness.compareAndSet(flightHappiness.get(), flightHappiness.get() + happinessAmount(status));
     }
 
-    /**
-     *
-     * @param flightStatus updated flight status
-     * @return integer based on the flightStatus parameter
-     */
     private int happinessAmount(FlightStatus flightStatus){
         switch (flightStatus){
             case ON_TIME:
@@ -73,32 +56,36 @@ class FlightDetails {
 
     /**
      *
-     * @return flight identification
+     * @return gets the key
      */
+
     String getFlightIdentification() {
         return flightIdentification;
     }
 
     /**
      *
-     * @return flight status
+     * @return gets the value
      */
+
     FlightStatus getFlightStatus() {
         return flightStatus;
     }
 
     /**
      *
-     * @return next flight hashed to the same index in the linked list
+     * @return gets the next KeyVal for the CLinkedList
      */
+
     FlightDetails getNext() {
         return next;
     }
 
     /**
      *
-     * @param next flight to be added to the linked list
+     * @param next sets the next KeyVal for the CLinkedList
      */
+
     void setNext(FlightDetails next) {
         this.next = next;
     }

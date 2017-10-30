@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"CSC375HW2","l":"AirTrafficController"},{"p":"CSC375HW2","l":"FlightDetails"},{"p":"CSC375HW2","l":"FlightStatus"},{"p":"CSC375HW2","l":"HashTable"},{"p":"CSC375HW2","l":"HashTable.Hashing"},{"p":"CSC375HW2","l":"Passenger"},{"p":"CSC375HW2","l":"ReadWriteLock"},{"p":"CSC375HW2","l":"Runner"},{"p":"CSC375HW2","l":"Terminal"}]

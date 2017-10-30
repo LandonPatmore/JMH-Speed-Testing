@@ -1,72 +1,50 @@
 package CSC375HW2;
 
 import java.util.Random;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
- * The passengers are reading here and the controllers send information here
+ * A class that simulates an airport terminal.  Runs AirTrafficControllers as well as Passengers.  Every 20 seconds, the terminal will read out the current total happiness of all flights.
  */
 
-public class Terminal implements Runnable {
+class Terminal implements Runnable {
     private String[] flights;
     private HashTable h;
-    private ConcurrentHashMap<String, FlightDetails> concurrentHashMap;
     private Random random;
+    private Executor pool;
 
-    Terminal(String[] flights, HashTable h){
+    /**
+     * @param flights array of flights that are passed to AirTrafficControllers as well as random flights assigned to Passengers
+     * @param h       hashtable to be passed to AirTrafficControllers as well as Passengers
+     */
+    Terminal(String[] flights, HashTable h) {
         this.flights = flights;
         this.h = h;
         random = new Random();
+        pool = Executors.newCachedThreadPool();
     }
 
-    Terminal(String[] flights, ConcurrentHashMap<String, FlightDetails> concurrentHashMap){
-        this.flights = flights;
-        this.concurrentHashMap = concurrentHashMap;
-        random = new Random();
-    }
-
+    /**
+     * Runner method.  Creates AirTrafficControllers and passengers as threads to simulate readers and writers.
+     */
     @Override
     public void run() {
-        if(concurrentHashMap == null) {
-            for (int i = 0; i < flights.length; i++) {
-                new Thread(new Passenger(i, flights[random.nextInt(flights.length)], h)).start();
-            }
+        for (int i = 0; i < flights.length; i++) {
+            pool.execute(new Passenger(i, flights[random.nextInt(flights.length)], h));
+        }
 
-            for (int i = 0; i < 10; i++) {
-                new Thread(new AirTrafficController(i, h, flights)).start();
-            }
+        for (int i = 0; i < 10; i++) {
+            pool.execute(new AirTrafficController(i, h, flights));
+        }
 
-            for (; ; ) {
-                try {
-                    Thread.sleep(20000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("\nCURRENT TERMINAL HAPPINESS: " + h.getTotalHappinessOfTerminal() + "\n");
+        for (; ; ) {
+            try {
+                Thread.sleep(20000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } else {
-            for (int i = 0; i < flights.length; i++) {
-                new Thread(new Passenger(i, flights[random.nextInt(flights.length)], concurrentHashMap)).start();
-            }
-
-            for (int i = 0; i < 10; i++) {
-                new Thread(new AirTrafficController(i, concurrentHashMap, flights)).start();
-            }
-
-            for (; ; ) {
-                try {
-                    Thread.sleep(20000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                int totalHappiness = 0;
-
-                for(String k : concurrentHashMap.keySet()){
-                    totalHappiness += concurrentHashMap.get(k).getHappiness();
-                }
-
-                System.out.println("\nCURRENT TERMINAL HAPPINESS: " + totalHappiness + "\n");
-            }
+            System.out.println("\nCURRENT TERMINAL HAPPINESS: " + h.getTotalHappinessOfTerminal() + "\n");
         }
     }
 }
