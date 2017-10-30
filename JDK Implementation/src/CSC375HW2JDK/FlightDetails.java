@@ -2,34 +2,17 @@ package CSC375HW2JDK;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Custom class for storing keys and values in a custome HashTable
- */
-public class FlightDetails {
+class FlightDetails {
     private String flightIdentification;
     private FlightStatus flightStatus;
     private AtomicInteger flightHappiness;
 
     private FlightDetails next;
 
-    /**
-     *
-     * @param k key string
-     * @param v String values
-     */
     FlightDetails(String k, FlightStatus v) {
         this.flightIdentification = k;
         this.flightStatus = v;
         flightHappiness = new AtomicInteger(100);
-    }
-
-    boolean setFlightStatus(FlightStatus flightStatus) {
-        if(this.flightStatus.equals(flightStatus)){
-            return false;
-        }
-        this.flightStatus = flightStatus;
-        setFlightHappiness(flightStatus);
-        return true;
     }
 
     int getHappiness(){
@@ -54,39 +37,11 @@ public class FlightDetails {
         return 0;
     }
 
-    /**
-     *
-     * @return gets the key
-     */
-
     String getFlightIdentification() {
         return flightIdentification;
     }
 
-    /**
-     *
-     * @return gets the value
-     */
-
     FlightStatus getFlightStatus() {
         return flightStatus;
-    }
-
-    /**
-     *
-     * @return gets the next KeyVal for the CLinkedList
-     */
-
-    FlightDetails getNext() {
-        return next;
-    }
-
-    /**
-     *
-     * @param next sets the next KeyVal for the CLinkedList
-     */
-
-    void setNext(FlightDetails next) {
-        this.next = next;
     }
 }

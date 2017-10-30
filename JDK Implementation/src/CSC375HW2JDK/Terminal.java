@@ -5,10 +5,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * The passengers are reading here and the controllers send information here
- */
-
 public class Terminal implements Runnable {
     private String[] flights;
     private ConcurrentHashMap<String, FlightDetails> concurrentHashMap;

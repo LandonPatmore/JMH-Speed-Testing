@@ -3,11 +3,7 @@ package CSC375HW2JDK;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Writer
- */
-
-public class AirTrafficController implements Runnable {
+class AirTrafficController implements Runnable {
     private int controllerNumber;
     private String[] flights;
     private Random random;

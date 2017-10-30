@@ -3,10 +3,6 @@ package CSC375HW2JDK;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Reader
- */
-
 public class Passenger implements Runnable {
     private int passengerNumber;
     private String flight;
@@ -21,7 +17,7 @@ public class Passenger implements Runnable {
         random = new Random();
     }
 
-    void readFlightDetails() {
+    private void readFlightDetails() {
         FlightDetails f = concurrentHashMap.get(flight);
         System.out.printf("%-20s %-20s %-20s\n", "PASSENGER: " + passengerNumber, f.getFlightIdentification(), f.getFlightStatus());
     }
