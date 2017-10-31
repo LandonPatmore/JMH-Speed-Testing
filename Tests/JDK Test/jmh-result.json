@@ -527,7 +527,7 @@
     },
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "Whole Program (Laptop)",
+        "benchmark" : "JDK Program (Laptop)",
         "mode" : "thrpt",
         "threads" : 1,
         "forks" : 10,
