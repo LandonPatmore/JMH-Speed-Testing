@@ -1,7 +1,7 @@
 [
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "org.sample.AirTrafficController.updateFlight",
+        "benchmark" : "Write (Laptop)",
         "mode" : "thrpt",
         "threads" : 1,
         "forks" : 10,
@@ -264,7 +264,7 @@
     },
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "org.sample.Passenger.readFlightDetails",
+        "benchmark" : "Read (Laptop)",
         "mode" : "thrpt",
         "threads" : 1,
         "forks" : 10,
@@ -527,7 +527,7 @@
     },
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "org.sample.ProgramBenchmark.testMethod",
+        "benchmark" : "Whole Program (Laptop)",
         "mode" : "thrpt",
         "threads" : 1,
         "forks" : 10,
