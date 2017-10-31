@@ -1,33 +1,31 @@
-package CSC375HW2;
+package CSC375HW2JDK;
 
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Runner {
 
     public static void main(String[] args) {
-        HashTable h = new HashTable();
+        ConcurrentHashMap<String, FlightDetails> concurrentHashMap = new ConcurrentHashMap<>();
         Random r = new Random();
 
         String[] flights = new String[50];
         createFlights(flights, r);
 
+
         for (String k : flights) {
-            h.put(new FlightDetails(k, FlightStatus.values()[r.nextInt(FlightStatus.values().length)]));
+            concurrentHashMap.put(k, new FlightDetails(k, FlightStatus.values()[r.nextInt(FlightStatus.values().length)]));
         }
 
-        for (int i = 0; i < flights.length; i++) {
-            new Thread(new Passenger(i, flights[r.nextInt(flights.length)], h)).start();
+        for (int i = 0; i < 100; i++) {
+            new Thread(new Passenger(i, flights[r.nextInt(flights.length)], concurrentHashMap)).start();
         }
 
-        for (int i = 0; i < 10; i++) {
-            new Thread(new AirTrafficController(i, h, flights)).start();
+        for (int i = 0; i < 20; i++) {
+            new Thread(new AirTrafficController(i, concurrentHashMap, flights)).start();
         }
     }
 
-    /**
-     * @param flights array to be populated with flights
-     * @param r       random number generator
-     */
     private static void createFlights(String[] flights, Random r) {
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().toCharArray();
 

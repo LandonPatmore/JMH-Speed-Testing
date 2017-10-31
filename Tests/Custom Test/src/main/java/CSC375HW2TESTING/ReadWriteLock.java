@@ -1,4 +1,4 @@
-package CSC375HW2;
+package CSC375HW2TESTING;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -6,10 +6,10 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Class that is a custom implementation of a Read Write Lock data structure.  It is a writer preference.
  */
-@SuppressWarnings("Duplicates")
 final class ReadWriteLock {
     private static int readers;
     private static int writers;
+    private static int waitingReaders;
     private static int waitingWriters;
 
     private static final ReentrantLock lock = new ReentrantLock();
@@ -27,17 +27,19 @@ final class ReadWriteLock {
         try {
             for (; ; ) {
                 if (Thread.interrupted()) {
-                    System.out.println("Waiting reader shutdown.");
+//                    System.out.println("Waiting reader shutdown.");
                     return;
                 }
                 if (writers == 0 && waitingWriters == 0) {
                     readers++;
                     break;
                 }
+                waitingReaders++;
                 readCondition.await();
+                waitingReaders--;
             }
         } catch (InterruptedException e) {
-            System.out.println("Waiting reader shutdown.");
+//            System.out.println("Waiting reader shutdown.");
         } finally {
             lock.unlock();
         }
@@ -51,7 +53,7 @@ final class ReadWriteLock {
         try {
             for (; ; ) {
                 if (Thread.interrupted()) {
-                    System.out.println("Waiting writer shutdown.");
+//                    System.out.println("Waiting writer shutdown.");
                     return;
                 }
                 if (readers == 0 && writers == 0) {
@@ -63,7 +65,7 @@ final class ReadWriteLock {
                 waitingWriters--;
             }
         } catch (InterruptedException e) {
-            System.out.println("Waiting writer shutdown.");
+//            System.out.println("Waiting writer shutdown.");
         } finally {
             lock.unlock();
         }

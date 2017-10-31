@@ -1,4 +1,4 @@
-package CSC375HW2;
+package CSC375HW2TESTING;
 
 /**
  * Class that simulates a Flight and its details.
@@ -9,8 +9,9 @@ class FlightDetails {
     private FlightDetails next;
 
     /**
+     *
      * @param flightIdentification identification
-     * @param flightStatus         status of the flight
+     * @param flightStatus status of the flight
      */
     FlightDetails(String flightIdentification, FlightStatus flightStatus) {
         this.flightIdentification = flightIdentification;
@@ -18,11 +19,12 @@ class FlightDetails {
     }
 
     /**
+     *
      * @param flightStatus updated flight status
      * @return true if the flight status can be updated or false because the flight already has that status currently
      */
     boolean setFlightStatus(FlightStatus flightStatus) {
-        if (this.flightStatus.equals(flightStatus)) {
+        if(this.flightStatus.equals(flightStatus)){
             return false;
         }
         this.flightStatus = flightStatus;
@@ -30,6 +32,7 @@ class FlightDetails {
     }
 
     /**
+     *
      * @return flight identification
      */
     String getFlightIdentification() {
@@ -37,6 +40,7 @@ class FlightDetails {
     }
 
     /**
+     *
      * @return flight status
      */
     FlightStatus getFlightStatus() {
@@ -44,6 +48,7 @@ class FlightDetails {
     }
 
     /**
+     *
      * @return next flight hashed to the same index in the linked list
      */
     FlightDetails getNext() {
@@ -51,6 +56,7 @@ class FlightDetails {
     }
 
     /**
+     *
      * @param next flight to be added to the linked list
      */
     void setNext(FlightDetails next) {

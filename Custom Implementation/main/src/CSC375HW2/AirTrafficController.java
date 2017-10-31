@@ -42,7 +42,8 @@ class AirTrafficController implements Runnable {
             try {
                 Thread.sleep(random.nextInt(10000));
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("Controller Interrupted. Shutting down.");
+                return;
             }
             updateFlight();
         }

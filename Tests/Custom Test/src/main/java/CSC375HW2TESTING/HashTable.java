@@ -1,4 +1,4 @@
-package CSC375HW2;
+package CSC375HW2TESTING;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -9,13 +9,12 @@ class HashTable {
     private FlightDetails[] HT;
     private int tableSize = 200;
     private AtomicInteger count = new AtomicInteger(0);
-    private int trueTableSize;
 
     /**
      * Creates array of Flights
      */
     HashTable() {
-        trueTableSize = nextPrime(tableSize);
+        int trueTableSize = nextPrime(tableSize);
         HT = new FlightDetails[nextPrime(trueTableSize)];
     }
 
@@ -70,24 +69,20 @@ class HashTable {
     /**
      * @param flight           flight identification
      * @param flightStatus     new status of the flight
-     * @param controllerNumber the controller who is going to change the flight
      */
-    void changeFlightDetails(String flight, FlightStatus flightStatus, int controllerNumber) {
+    void changeFlightDetails(String flight, FlightStatus flightStatus) {
         FlightDetails changedFlight = get(flight);
         ReadWriteLock.lockWrite();
 
         if (changedFlight == null) {
-            System.out.println("Flight: " + flight + " could not be changed because it does not exist.");
             ReadWriteLock.unlockWrite();
             return;
         }
 
         if (!changedFlight.setFlightStatus(flightStatus)) {
-            System.out.println("\nFlight: " + flight + " not changed because it is already: " + flightStatus + "\n");
             ReadWriteLock.unlockWrite();
             return;
         }
-        System.out.printf("%80s %40s %40s\n", "CONTROLLER: " + controllerNumber, changedFlight.getFlightIdentification(), "CHANGED TO: " + changedFlight.getFlightStatus());
         ReadWriteLock.unlockWrite();
 
     }

@@ -1,0 +1,3 @@
+JMH S 27 org.sample.ProgramBenchmark S 56 org.sample.generated.ProgramBenchmark_testMethod_jmhTest S 10 testMethod S 10 Throughput E A 1 1 1 E E E E E E E E E E E E E E U 7 SECONDS E E 
+JMH S 31 org.sample.AirTrafficController S 62 org.sample.generated.AirTrafficController_updateFlight_jmhTest S 12 updateFlight S 10 Throughput E A 1 1 1 E E E E E E E E E E E E E E U 12 MICROSECONDS E E 
+JMH S 20 org.sample.Passenger S 56 org.sample.generated.Passenger_readFlightDetails_jmhTest S 17 readFlightDetails S 10 Throughput E A 1 1 1 E E E E E E E E E E E E E E U 12 MICROSECONDS E E 

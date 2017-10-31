@@ -1,0 +1,52 @@
+# JMH version: 1.19
+# VM version: JDK 9, VM 9+181
+# VM invoker: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1 s each
+# Measurement: 20 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.sample.MyBenchmark.testMethod
+
+# Run progress: 0.00% complete, ETA 00:06:40
+# Fork: 1 of 10
+# Warmup Iteration   1: 213.194 ops/s
+# Warmup Iteration   2: 222.402 ops/s
+# Warmup Iteration   3: 211.638 ops/s
+# Warmup Iteration   4: 216.560 ops/s
+# Warmup Iteration   5: 238.642 ops/s
+# Warmup Iteration   6: 208.306 ops/s
+# Warmup Iteration   7: 200.294 ops/s
+# Warmup Iteration   8: 168.811 ops/s
+# Warmup Iteration   9: 231.144 ops/s
+# Warmup Iteration  10: 243.106 ops/s
+# Warmup Iteration  11: 244.361 ops/s
+# Warmup Iteration  12: 226.575 ops/s
+# Warmup Iteration  13: 234.067 ops/s
+# Warmup Iteration  14: 225.202 ops/s
+# Warmup Iteration  15: 199.329 ops/s
+# Warmup Iteration  16: 208.051 ops/s
+# Warmup Iteration  17: 218.277 ops/s
+# Warmup Iteration  18: 230.109 ops/s
+# Warmup Iteration  19: 238.409 ops/s
+# Warmup Iteration  20: 223.806 ops/s
+Iteration   1: 228.161 ops/s
+Iteration   2: 231.203 ops/s
+Iteration   3: 217.153 ops/s
+Iteration   4: 200.896 ops/s
+Iteration   5: 216.329 ops/s
+Iteration   6: 219.310 ops/s
+Iteration   7: 218.327 ops/s
+Iteration   8: 180.719 ops/s
+Iteration   9: 173.221 ops/s
+Iteration  10: 206.579 ops/s
+Iteration  11: 154.899 ops/s
+Iteration  12: 191.045 ops/s
+Iteration  13: 173.842 ops/s
+Iteration  14: 182.084 ops/s
+Iteration  15: 202.345 ops/s
+Iteration  16: 160.180 ops/s
+Iteration  17: 194.811 ops/s
+Iteration  18: 191.023 ops/s
+Iteration  19: <failure: VM prematurely exited before JMH had finished with it, explicit System.exit was called?>

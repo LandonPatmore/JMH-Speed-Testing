@@ -41,7 +41,8 @@ public class Passenger implements Runnable {
             try {
                 Thread.sleep(random.nextInt(10000));
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("Passenger Interrupted. Shutting down.");
+                return;
             }
             readFlightDetails();
         }
