@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSC375HW2 Data</title>
+</head>
+
+<body>
+
+    <main>
+        <h1>Custom Read/Write</h1>
+        <canvas id="CustomTest" width="740" height="200"></canvas>
+        <h1>JDK Read/Write</h1>
+        <canvas id="JDKTest" width="740" height="200"></canvas>
+        <h1>Whole Program Custom</h1>
+        <canvas id="WholeCustom" width="740" height="200"></canvas>
+        <h1>Whole Program JDK</h1>
+        <canvas id="WholeJDK" width="740" height="200"></canvas>
+
+    </main>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+
+    <script>        
+        var dataColors = ["rgba(102,230,39,0.4)", "rgba(242,243,51,0.4)", "rgba(220,158,130,0.4)", "rgba(1,243,51,0.4)"]
+
+        function drawLineChart(urls, chartId, bool) {
+            var datasets = [];
+            var labels = [];
+            for (var i = 1; i < 201; i++) {
+                labels.push(i);
+            }
+            var colorCount = 0;
+            urls.forEach(function (url) {
+                var jsonData = $.ajax({
+                    url: url,
+                    dataType: 'json',
+                }).done(function (results) {
+                    if (bool) {
+                        var element = results[2];
+                        var count = 0;
+                        var dataset = {};
+                        var data = [];
+
+                        dataset.label = element.benchmark
+                        element.primaryMetric.rawData.forEach(function (element) {
+                            element.forEach(function (res) {
+                                data.push(res);
+                            }, this);
+                        }, this);
+
+                        dataset.data = data;
+                        dataset.backgroundColor = dataColors[colorCount++]
+                        datasets.push(dataset);
+                    } else {
+                        for (var i = 0; i < 2; i++) {
+                            var element = results[i];
+                            var count = 0;
+                            var dataset = {};
+                            var data = [];
+
+                            dataset.label = element.benchmark
+                            element.primaryMetric.rawData.forEach(function (element) {
+                                element.forEach(function (res) {
+                                    data.push(res * 1000000);
+                                }, this);
+                            }, this);
+
+                            dataset.data = data;
+                            dataset.backgroundColor = dataColors[colorCount++]
+                            datasets.push(dataset);
+                        }
+                    }
+                });
+            });
+            var ctx = document.getElementById(chartId).getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: datasets,
+                    responsive: true,
+                    maintainAspectRatio: false
+                }, options: {
+                    responsive: true,
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Test Number'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: "OP/Second"
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/Custom%20Test/jmh-result.json?token=AVKJ6o-lXq0HXi7Zp4ljmWtmVQpjyXkbks5aAXV2wA%3D%3D', 'https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/Custom%20Test/server.json?token=AVKJ6libQh6yrQfUoLs8bfDy9t5244OVks5aAXWMwA%3D%3D'], 'CustomTest', false);
+        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/JDK%20Test/jmh-result.json?token=AVKJ6tni56DIcnIFnRAw4-QUrCzVkLLtks5aAXWewA%3D%3D', 'https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/JDK%20Test/server.json?token=AVKJ6m-toQmHjXVN0HUXsFNRsUvF5APWks5aAXWrwA%3D%3D'], 'JDKTest', false);
+        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/Custom%20Test/jmh-result.json?token=AVKJ6o-lXq0HXi7Zp4ljmWtmVQpjyXkbks5aAXV2wA%3D%3D', 'https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/Custom%20Test/server.json?token=AVKJ6libQh6yrQfUoLs8bfDy9t5244OVks5aAXWMwA%3D%3D'], 'WholeCustom', true);
+        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/JDK%20Test/jmh-result.json?token=AVKJ6tni56DIcnIFnRAw4-QUrCzVkLLtks5aAXWewA%3D%3D', 'https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/JDK%20Test/server.json?token=AVKJ6m-toQmHjXVN0HUXsFNRsUvF5APWks5aAXWrwA%3D%3D'], 'WholeJDK', true);
+    </script>
+</body>
+
+</html>
