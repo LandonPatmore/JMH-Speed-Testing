@@ -527,7 +527,7 @@
     },
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "CSC375HW2TESTING.ProgramBenchmark.testMethod",
+        "benchmark" : "Custom Program (Laptop)",
         "mode" : "thrpt",
         "threads" : 1,
         "forks" : 10,
