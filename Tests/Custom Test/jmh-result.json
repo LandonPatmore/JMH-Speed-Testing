@@ -1,7 +1,7 @@
 [
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "CSC375HW2TESTING.AirTrafficController.updateFlight",
+        "benchmark" : "Write (Laptop)",
         "mode" : "thrpt",
         "threads" : 1,
         "forks" : 10,
@@ -264,7 +264,7 @@
     },
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "CSC375HW2TESTING.Passenger.readFlightDetails",
+        "benchmark" : "Read (Laptop)",
         "mode" : "thrpt",
         "threads" : 1,
         "forks" : 10,
