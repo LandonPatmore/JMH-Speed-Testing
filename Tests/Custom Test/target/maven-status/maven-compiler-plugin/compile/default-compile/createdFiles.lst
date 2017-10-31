@@ -1,8 +1,8 @@
 META-INF/CompilerHints
 CSC375HW2TESTING/generated/ProgramBenchmark_jmhType_B3.class
 CSC375HW2TESTING/generated/ProgramBenchmark_testMethod_jmhTest.class
-CSC375HW2TESTING/generated/AirTrafficController_jmhType_B1.class
 CSC375HW2TESTING/FlightDetails.class
+CSC375HW2TESTING/generated/AirTrafficController_jmhType_B1.class
 CSC375HW2TESTING/generated/ProgramBenchmark_jmhType.class
 CSC375HW2TESTING/generated/ProgramBenchmark_jmhType_B1.class
 CSC375HW2TESTING/generated/Passenger_jmhType_B3.class
@@ -13,13 +13,13 @@ CSC375HW2TESTING/HashTable.class
 CSC375HW2TESTING/HashTable$Hashing.class
 CSC375HW2TESTING/generated/Passenger_readFlightDetails_jmhTest.class
 CSC375HW2TESTING/generated/AirTrafficController_jmhType_B3.class
-CSC375HW2TESTING/generated/Passenger_jmhType_B2.class
 CSC375HW2TESTING/generated/AirTrafficController_jmhType.class
+CSC375HW2TESTING/generated/Passenger_jmhType_B2.class
 CSC375HW2TESTING/generated/ProgramBenchmark_jmhType_B2.class
 CSC375HW2TESTING/Passenger.class
 CSC375HW2TESTING/FlightStatus.class
-CSC375HW2TESTING/generated/AirTrafficController_jmhType_B2.class
 CSC375HW2TESTING/AirTrafficController.class
+CSC375HW2TESTING/generated/AirTrafficController_jmhType_B2.class
 CSC375HW2TESTING/generated/Passenger_jmhType.class
 CSC375HW2TESTING/generated/Passenger_jmhType_B1.class
 CSC375HW2TESTING/ReadWriteLock.class
