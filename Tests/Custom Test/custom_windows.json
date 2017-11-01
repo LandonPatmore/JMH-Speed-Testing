@@ -1,7 +1,7 @@
 [
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "CSC375HW2TESTING.AirTrafficController.updateFlight",
+        "benchmark" : "Update (Windows) Custom",
         "mode" : "thrpt",
         "threads" : 20,
         "forks" : 10,
@@ -264,7 +264,7 @@
     },
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "CSC375HW2TESTING.Passenger.readFlightDetails",
+        "benchmark" : "Read (Windows) Custom",
         "mode" : "thrpt",
         "threads" : 100,
         "forks" : 10,
@@ -527,7 +527,7 @@
     },
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "CSC375HW2TESTING.ProgramBenchmark.ReadWrite",
+        "benchmark" : "Read/Write (Custom) Windows",
         "mode" : "thrpt",
         "threads" : 120,
         "forks" : 10,
