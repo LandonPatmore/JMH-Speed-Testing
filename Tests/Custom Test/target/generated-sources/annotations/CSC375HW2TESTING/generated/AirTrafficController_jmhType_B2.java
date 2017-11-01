@@ -16,4 +16,7 @@ public class AirTrafficController_jmhType_B2 extends AirTrafficController_jmhTyp
     public final static AtomicIntegerFieldUpdater<AirTrafficController_jmhType_B2> setupInvocationMutexUpdater = AtomicIntegerFieldUpdater.newUpdater(AirTrafficController_jmhType_B2.class, "setupInvocationMutex");
     public final static AtomicIntegerFieldUpdater<AirTrafficController_jmhType_B2> tearInvocationMutexUpdater = AtomicIntegerFieldUpdater.newUpdater(AirTrafficController_jmhType_B2.class, "tearInvocationMutex");
 
+    public volatile boolean readyTrial;
+    public volatile boolean readyIteration;
+    public volatile boolean readyInvocation;
 }

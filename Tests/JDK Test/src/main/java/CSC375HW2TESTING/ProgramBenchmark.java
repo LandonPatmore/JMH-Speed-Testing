@@ -29,48 +29,47 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.sample;
+package CSC375HW2TESTING;
 
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.*;
 
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 
+@State(Scope.Benchmark)
 public class ProgramBenchmark {
+    private ConcurrentHashMap<String, FlightDetails> concurrentHashMap;
+    private Random r;
+    private String[] flights;
 
-    public static void main(String[] args) {
-        testMethod();
+    @Setup
+    public void init(){
+        concurrentHashMap = new ConcurrentHashMap<>();
+        r = new Random();
+        flights = createFlights();
     }
 
-    @Benchmark @OutputTimeUnit(TimeUnit.SECONDS)
-    public static void testMethod() {
-        ConcurrentHashMap<String, FlightDetails> concurrentHashMap = new ConcurrentHashMap<>();
-        Random r = new Random();
+    @Benchmark
+    @GroupThreads(20)
+    @Group("ReadWrite")
+    public void write(){
+        String randomFlight = flights[r.nextInt(flights.length)];
+        FlightStatus status = FlightStatus.values()[new Random().nextInt(FlightStatus.values().length)];
+        FlightDetails flightToBeUpdated = concurrentHashMap.get(randomFlight);
+        flightToBeUpdated.setFlightStatus(status);
 
-        String[] flights = createFlights();
-
-
-        for (String k : flights) {
-            concurrentHashMap.put(k, new FlightDetails(k, FlightStatus.values()[r.nextInt(FlightStatus.values().length)]));
-        }
-
-        for (int i = 0; i < 100; i++) {
-            Passenger passenger = new Passenger();
-            passenger.initBenchMark(flights[r.nextInt(flights.length)], concurrentHashMap);
-            new Thread(passenger).start();
-        }
-
-        for (int i = 0; i < 30; i++) {
-            AirTrafficController airTrafficController = new AirTrafficController();
-            airTrafficController.initBenchMark(concurrentHashMap, flights);
-            new Thread(airTrafficController).start();
-        }
-
+        concurrentHashMap.replace(randomFlight, flightToBeUpdated);
     }
 
-    static String[] createFlights() {
+    @Benchmark
+    @GroupThreads(100)
+    @Group("ReadWrite")
+    public void read(){
+        String flight = flights[r.nextInt(flights.length)];
+        concurrentHashMap.get(flight);
+    }
+
+    String[] createFlights() {
         Random r = new Random();
         String[] generatedFlights = new String[50];
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().toCharArray();

@@ -1,4 +1,4 @@
-package org.sample;
+package CSC375HW2TESTING;
 
 import org.openjdk.jmh.annotations.*;
 
@@ -6,24 +6,18 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-@State(Scope.Thread)
-public class AirTrafficController implements Runnable {
+@State(Scope.Benchmark)
+public class AirTrafficController {
     private String[] flights;
     private Random r;
     private ConcurrentHashMap<String, FlightDetails> concurrentHashMap;
-
-    void initBenchMark(ConcurrentHashMap<String, FlightDetails> concurrentHashMap, String[] flights) {
-        this.concurrentHashMap = concurrentHashMap;
-        this.flights = flights;
-        r = new Random();
-    }
 
     @Setup
     public void init() {
         ProgramBenchmark m = new ProgramBenchmark();
         r = new Random();
 
-        flights = ProgramBenchmark.createFlights();
+        flights = m.createFlights();
         concurrentHashMap = new ConcurrentHashMap<>();
 
         for (String k : flights) {
@@ -32,6 +26,7 @@ public class AirTrafficController implements Runnable {
     }
 
     @Benchmark
+    @GroupThreads(20)
     @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public void updateFlight() {
         String randomFlight = flights[r.nextInt(flights.length)];
@@ -40,14 +35,6 @@ public class AirTrafficController implements Runnable {
         flightToBeUpdated.setFlightStatus(status);
 
         concurrentHashMap.replace(randomFlight, flightToBeUpdated);
-    }
-
-    @Override
-    public void run() {
-        if (Thread.interrupted()) {
-            return;
-        }
-        updateFlight();
     }
 }
 

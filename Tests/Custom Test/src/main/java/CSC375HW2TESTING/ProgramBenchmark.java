@@ -1,37 +1,39 @@
 package CSC375HW2TESTING;
 
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.*;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
+@State(Scope.Benchmark)
 public class ProgramBenchmark {
+    private HashTable h;
+    private Random r;
+    private String[] flights;
 
-    @Benchmark @OutputTimeUnit(TimeUnit.SECONDS)
-    public void testMethod() {
-        HashTable h = new HashTable();
-        Random r = new Random();
-
-        String[] flights = createFlights();
-
-        for (String k : flights) {
-            h.put(new FlightDetails(k, FlightStatus.values()[r.nextInt(FlightStatus.values().length)]));
-        }
-
-        for (int i = 0; i < 100; i++) {
-            Passenger passenger = new Passenger();
-            passenger.initBenchMark(flights[r.nextInt(flights.length)], h);
-            new Thread(passenger).start();
-        }
-
-        for (int i = 0; i < 20; i++) {
-            AirTrafficController airTrafficController = new AirTrafficController();
-            airTrafficController.initBenchMark(h, flights);
-            new Thread(airTrafficController).start();
-        }
+    @Setup
+    public void init(){
+        h = new HashTable();
+        r = new Random();
+        flights = createFlights();
     }
 
+    @Benchmark
+    @GroupThreads(20)
+    @Group("ReadWrite")
+    public void write(){
+        String randomFlight = flights[r.nextInt(flights.length)];
+        FlightStatus status = FlightStatus.values()[new Random().nextInt(FlightStatus.values().length)];
+
+        h.changeFlightDetails(randomFlight, status);
+    }
+
+    @Benchmark
+    @GroupThreads(100)
+    @Group("ReadWrite")
+    public void read(){
+        String flight = flights[r.nextInt(flights.length)];
+        h.get(flight);
+    }
 
     String[] createFlights() {
         Random r = new Random();

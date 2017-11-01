@@ -1,4 +1,4 @@
-package org.sample;
+package CSC375HW2TESTING;
 
 class FlightDetails {
     private String flightIdentification;

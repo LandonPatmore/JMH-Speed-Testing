@@ -68,24 +68,24 @@ public final class AirTrafficController_updateFlight_jmhTest {
         }
         if (threadParams.getSubgroupIndex() == 0) {
             RawResults res = new RawResults();
-            AirTrafficController_jmhType l_airtrafficcontroller0_0 = _jmh_tryInit_f_airtrafficcontroller0_0(control);
+            AirTrafficController_jmhType l_airtrafficcontroller0_G = _jmh_tryInit_f_airtrafficcontroller0_G(control);
 
             control.preSetup();
 
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
-                l_airtrafficcontroller0_0.updateFlight();
+                l_airtrafficcontroller0_G.updateFlight();
                 res.allOps++;
             }
 
             notifyControl.startMeasurement = true;
-            updateFlight_thrpt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_airtrafficcontroller0_0);
+            updateFlight_thrpt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_airtrafficcontroller0_G);
             notifyControl.stopMeasurement = true;
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
-                    l_airtrafficcontroller0_0.updateFlight();
+                    l_airtrafficcontroller0_G.updateFlight();
                     res.allOps++;
                 }
                 control.preTearDown();
@@ -94,7 +94,30 @@ public final class AirTrafficController_updateFlight_jmhTest {
             }
 
             if (control.isLastIteration()) {
-                f_airtrafficcontroller0_0 = null;
+                if (AirTrafficController_jmhType.tearTrialMutexUpdater.compareAndSet(l_airtrafficcontroller0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (l_airtrafficcontroller0_G.readyTrial) {
+                            l_airtrafficcontroller0_G.readyTrial = false;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        AirTrafficController_jmhType.tearTrialMutexUpdater.set(l_airtrafficcontroller0_G, 0);
+                    }
+                } else {
+                    long l_airtrafficcontroller0_G_backoff = 1;
+                    while (AirTrafficController_jmhType.tearTrialMutexUpdater.get(l_airtrafficcontroller0_G) == 1) {
+                        TimeUnit.MILLISECONDS.sleep(l_airtrafficcontroller0_G_backoff);
+                        l_airtrafficcontroller0_G_backoff = Math.max(1024, l_airtrafficcontroller0_G_backoff * 2);
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
+                synchronized(this.getClass()) {
+                    f_airtrafficcontroller0_G = null;
+                }
             }
             res.allOps += res.measuredOps;
             int batchSize = iterationParams.getBatchSize();
@@ -111,12 +134,12 @@ public final class AirTrafficController_updateFlight_jmhTest {
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void updateFlight_thrpt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, AirTrafficController_jmhType l_airtrafficcontroller0_0) throws Throwable {
+    public static void updateFlight_thrpt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, AirTrafficController_jmhType l_airtrafficcontroller0_G) throws Throwable {
         long operations = 0;
         long realTime = 0;
         result.startTime = System.nanoTime();
         do {
-            l_airtrafficcontroller0_0.updateFlight();
+            l_airtrafficcontroller0_G.updateFlight();
             operations++;
         } while(!control.isDone);
         result.stopTime = System.nanoTime();
@@ -135,24 +158,24 @@ public final class AirTrafficController_updateFlight_jmhTest {
         }
         if (threadParams.getSubgroupIndex() == 0) {
             RawResults res = new RawResults();
-            AirTrafficController_jmhType l_airtrafficcontroller0_0 = _jmh_tryInit_f_airtrafficcontroller0_0(control);
+            AirTrafficController_jmhType l_airtrafficcontroller0_G = _jmh_tryInit_f_airtrafficcontroller0_G(control);
 
             control.preSetup();
 
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
-                l_airtrafficcontroller0_0.updateFlight();
+                l_airtrafficcontroller0_G.updateFlight();
                 res.allOps++;
             }
 
             notifyControl.startMeasurement = true;
-            updateFlight_avgt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_airtrafficcontroller0_0);
+            updateFlight_avgt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_airtrafficcontroller0_G);
             notifyControl.stopMeasurement = true;
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
-                    l_airtrafficcontroller0_0.updateFlight();
+                    l_airtrafficcontroller0_G.updateFlight();
                     res.allOps++;
                 }
                 control.preTearDown();
@@ -161,7 +184,30 @@ public final class AirTrafficController_updateFlight_jmhTest {
             }
 
             if (control.isLastIteration()) {
-                f_airtrafficcontroller0_0 = null;
+                if (AirTrafficController_jmhType.tearTrialMutexUpdater.compareAndSet(l_airtrafficcontroller0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (l_airtrafficcontroller0_G.readyTrial) {
+                            l_airtrafficcontroller0_G.readyTrial = false;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        AirTrafficController_jmhType.tearTrialMutexUpdater.set(l_airtrafficcontroller0_G, 0);
+                    }
+                } else {
+                    long l_airtrafficcontroller0_G_backoff = 1;
+                    while (AirTrafficController_jmhType.tearTrialMutexUpdater.get(l_airtrafficcontroller0_G) == 1) {
+                        TimeUnit.MILLISECONDS.sleep(l_airtrafficcontroller0_G_backoff);
+                        l_airtrafficcontroller0_G_backoff = Math.max(1024, l_airtrafficcontroller0_G_backoff * 2);
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
+                synchronized(this.getClass()) {
+                    f_airtrafficcontroller0_G = null;
+                }
             }
             res.allOps += res.measuredOps;
             int batchSize = iterationParams.getBatchSize();
@@ -178,12 +224,12 @@ public final class AirTrafficController_updateFlight_jmhTest {
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void updateFlight_avgt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, AirTrafficController_jmhType l_airtrafficcontroller0_0) throws Throwable {
+    public static void updateFlight_avgt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, AirTrafficController_jmhType l_airtrafficcontroller0_G) throws Throwable {
         long operations = 0;
         long realTime = 0;
         result.startTime = System.nanoTime();
         do {
-            l_airtrafficcontroller0_0.updateFlight();
+            l_airtrafficcontroller0_G.updateFlight();
             operations++;
         } while(!control.isDone);
         result.stopTime = System.nanoTime();
@@ -202,14 +248,14 @@ public final class AirTrafficController_updateFlight_jmhTest {
         }
         if (threadParams.getSubgroupIndex() == 0) {
             RawResults res = new RawResults();
-            AirTrafficController_jmhType l_airtrafficcontroller0_0 = _jmh_tryInit_f_airtrafficcontroller0_0(control);
+            AirTrafficController_jmhType l_airtrafficcontroller0_G = _jmh_tryInit_f_airtrafficcontroller0_G(control);
 
             control.preSetup();
 
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
-                l_airtrafficcontroller0_0.updateFlight();
+                l_airtrafficcontroller0_G.updateFlight();
                 res.allOps++;
             }
 
@@ -218,12 +264,12 @@ public final class AirTrafficController_updateFlight_jmhTest {
             int batchSize = iterationParams.getBatchSize();
             int opsPerInv = benchmarkParams.getOpsPerInvocation();
             SampleBuffer buffer = new SampleBuffer();
-            updateFlight_sample_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, buffer, targetSamples, opsPerInv, batchSize, l_airtrafficcontroller0_0);
+            updateFlight_sample_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, buffer, targetSamples, opsPerInv, batchSize, l_airtrafficcontroller0_G);
             notifyControl.stopMeasurement = true;
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
-                    l_airtrafficcontroller0_0.updateFlight();
+                    l_airtrafficcontroller0_G.updateFlight();
                     res.allOps++;
                 }
                 control.preTearDown();
@@ -232,7 +278,30 @@ public final class AirTrafficController_updateFlight_jmhTest {
             }
 
             if (control.isLastIteration()) {
-                f_airtrafficcontroller0_0 = null;
+                if (AirTrafficController_jmhType.tearTrialMutexUpdater.compareAndSet(l_airtrafficcontroller0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (l_airtrafficcontroller0_G.readyTrial) {
+                            l_airtrafficcontroller0_G.readyTrial = false;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        AirTrafficController_jmhType.tearTrialMutexUpdater.set(l_airtrafficcontroller0_G, 0);
+                    }
+                } else {
+                    long l_airtrafficcontroller0_G_backoff = 1;
+                    while (AirTrafficController_jmhType.tearTrialMutexUpdater.get(l_airtrafficcontroller0_G) == 1) {
+                        TimeUnit.MILLISECONDS.sleep(l_airtrafficcontroller0_G_backoff);
+                        l_airtrafficcontroller0_G_backoff = Math.max(1024, l_airtrafficcontroller0_G_backoff * 2);
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
+                synchronized(this.getClass()) {
+                    f_airtrafficcontroller0_G = null;
+                }
             }
             res.allOps += res.measuredOps * batchSize;
             res.allOps *= opsPerInv;
@@ -246,7 +315,7 @@ public final class AirTrafficController_updateFlight_jmhTest {
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void updateFlight_sample_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, SampleBuffer buffer, int targetSamples, long opsPerInv, int batchSize, AirTrafficController_jmhType l_airtrafficcontroller0_0) throws Throwable {
+    public static void updateFlight_sample_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, SampleBuffer buffer, int targetSamples, long opsPerInv, int batchSize, AirTrafficController_jmhType l_airtrafficcontroller0_G) throws Throwable {
         long realTime = 0;
         long operations = 0;
         int rnd = (int)System.nanoTime();
@@ -261,7 +330,7 @@ public final class AirTrafficController_updateFlight_jmhTest {
             }
             for (int b = 0; b < batchSize; b++) {
                 if (control.volatileSpoiler) return;
-                l_airtrafficcontroller0_0.updateFlight();
+                l_airtrafficcontroller0_G.updateFlight();
             }
             if (sample) {
                 buffer.add((System.nanoTime() - time) / opsPerInv);
@@ -288,7 +357,7 @@ public final class AirTrafficController_updateFlight_jmhTest {
             this.blackhole = new Blackhole("Today's password is swordfish. I understand instantiating Blackholes directly is dangerous.");
         }
         if (threadParams.getSubgroupIndex() == 0) {
-            AirTrafficController_jmhType l_airtrafficcontroller0_0 = _jmh_tryInit_f_airtrafficcontroller0_0(control);
+            AirTrafficController_jmhType l_airtrafficcontroller0_G = _jmh_tryInit_f_airtrafficcontroller0_G(control);
 
             control.preSetup();
 
@@ -296,11 +365,34 @@ public final class AirTrafficController_updateFlight_jmhTest {
             notifyControl.startMeasurement = true;
             RawResults res = new RawResults();
             int batchSize = iterationParams.getBatchSize();
-            updateFlight_ss_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, batchSize, l_airtrafficcontroller0_0);
+            updateFlight_ss_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, batchSize, l_airtrafficcontroller0_G);
             control.preTearDown();
 
             if (control.isLastIteration()) {
-                f_airtrafficcontroller0_0 = null;
+                if (AirTrafficController_jmhType.tearTrialMutexUpdater.compareAndSet(l_airtrafficcontroller0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (l_airtrafficcontroller0_G.readyTrial) {
+                            l_airtrafficcontroller0_G.readyTrial = false;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        AirTrafficController_jmhType.tearTrialMutexUpdater.set(l_airtrafficcontroller0_G, 0);
+                    }
+                } else {
+                    long l_airtrafficcontroller0_G_backoff = 1;
+                    while (AirTrafficController_jmhType.tearTrialMutexUpdater.get(l_airtrafficcontroller0_G) == 1) {
+                        TimeUnit.MILLISECONDS.sleep(l_airtrafficcontroller0_G_backoff);
+                        l_airtrafficcontroller0_G_backoff = Math.max(1024, l_airtrafficcontroller0_G_backoff * 2);
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
+                synchronized(this.getClass()) {
+                    f_airtrafficcontroller0_G = null;
+                }
             }
             int opsPerInv = control.benchmarkParams.getOpsPerInvocation();
             long totalOps = opsPerInv;
@@ -312,27 +404,40 @@ public final class AirTrafficController_updateFlight_jmhTest {
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void updateFlight_ss_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, int batchSize, AirTrafficController_jmhType l_airtrafficcontroller0_0) throws Throwable {
+    public static void updateFlight_ss_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, int batchSize, AirTrafficController_jmhType l_airtrafficcontroller0_G) throws Throwable {
         long realTime = 0;
         result.startTime = System.nanoTime();
         for (int b = 0; b < batchSize; b++) {
             if (control.volatileSpoiler) return;
-            l_airtrafficcontroller0_0.updateFlight();
+            l_airtrafficcontroller0_G.updateFlight();
         }
         result.stopTime = System.nanoTime();
         result.realTime = realTime;
     }
 
     
-    AirTrafficController_jmhType f_airtrafficcontroller0_0;
+    static volatile AirTrafficController_jmhType f_airtrafficcontroller0_G;
     
-    AirTrafficController_jmhType _jmh_tryInit_f_airtrafficcontroller0_0(InfraControl control) throws Throwable {
-        if (control.isFailing) throw new FailureAssistException();
-        AirTrafficController_jmhType val = f_airtrafficcontroller0_0;
-        if (val == null) {
+    AirTrafficController_jmhType _jmh_tryInit_f_airtrafficcontroller0_G(InfraControl control) throws Throwable {
+        AirTrafficController_jmhType val = f_airtrafficcontroller0_G;
+        if (val != null) {
+            return val;
+        }
+        synchronized(this.getClass()) {
+            try {
+            if (control.isFailing) throw new FailureAssistException();
+            val = f_airtrafficcontroller0_G;
+            if (val != null) {
+                return val;
+            }
             val = new AirTrafficController_jmhType();
             val.init();
-            f_airtrafficcontroller0_0 = val;
+            val.readyTrial = true;
+            f_airtrafficcontroller0_G = val;
+            } catch (Throwable t) {
+                control.isFailing = true;
+                throw t;
+            }
         }
         return val;
     }

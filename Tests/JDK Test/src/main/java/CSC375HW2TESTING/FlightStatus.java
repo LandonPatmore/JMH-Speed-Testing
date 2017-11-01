@@ -1,4 +1,4 @@
-package org.sample;
+package CSC375HW2TESTING;
 
 public enum FlightStatus {
     ON_TIME,

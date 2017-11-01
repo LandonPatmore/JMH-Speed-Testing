@@ -16,4 +16,7 @@ public class Passenger_jmhType_B2 extends Passenger_jmhType_B1 {
     public final static AtomicIntegerFieldUpdater<Passenger_jmhType_B2> setupInvocationMutexUpdater = AtomicIntegerFieldUpdater.newUpdater(Passenger_jmhType_B2.class, "setupInvocationMutex");
     public final static AtomicIntegerFieldUpdater<Passenger_jmhType_B2> tearInvocationMutexUpdater = AtomicIntegerFieldUpdater.newUpdater(Passenger_jmhType_B2.class, "tearInvocationMutex");
 
+    public volatile boolean readyTrial;
+    public volatile boolean readyIteration;
+    public volatile boolean readyInvocation;
 }

@@ -7,22 +7,19 @@ import java.util.concurrent.locks.ReentrantLock;
  * Class that is a custom implementation of a Read Write Lock data structure.  It is a writer preference.
  */
 @SuppressWarnings("Duplicates")
-final class ReadWriteLock {
-    private static int readers;
-    private static int writers;
-    private static int waitingWriters;
+class ReadWriteLock {
+    private int readers;
+    private int writers;
+    private int waitingWriters;
 
-    private static final ReentrantLock lock = new ReentrantLock();
-    private static final Condition readCondition = lock.newCondition();
-    private static final Condition writeCondition = lock.newCondition();
-
-    private ReadWriteLock() {
-    }
+    private final ReentrantLock lock = new ReentrantLock();
+    private final Condition readCondition = lock.newCondition();
+    private final Condition writeCondition = lock.newCondition();
 
     /**
      * Blocks a reader if there is a writer or waiting writer, otherwise will allow the reader to read.
      */
-    static void lockRead() {
+    void lockRead() {
         lock.lock();
         try {
             for (; ; ) {
@@ -46,7 +43,7 @@ final class ReadWriteLock {
     /**
      * Blocks a writer if there is a writer or readers, otherwise will allow the writer to write.
      */
-    static void lockWrite() {
+    void lockWrite() {
         lock.lock();
         try {
             for (; ; ) {
@@ -72,7 +69,7 @@ final class ReadWriteLock {
     /**
      * Once readers is equal to 0, will signal waiting writers, otherwise will signal waiting readers.
      */
-    static void unlockRead() {
+    void unlockRead() {
         lock.lock();
         try {
             if (--readers == 0) {
@@ -90,7 +87,7 @@ final class ReadWriteLock {
     /**
      * Once writers is equal to 0, will signal waiting writers, otherwise will signal waiting readers.
      */
-    static void unlockWrite() {
+    void unlockWrite() {
         lock.lock();
         try {
             if (--writers == 0) {

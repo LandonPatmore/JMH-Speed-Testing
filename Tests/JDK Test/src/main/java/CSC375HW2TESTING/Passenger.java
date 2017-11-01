@@ -1,4 +1,4 @@
-package org.sample;
+package CSC375HW2TESTING;
 
 import org.openjdk.jmh.annotations.*;
 
@@ -6,15 +6,10 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-@State(Scope.Thread)
-public class Passenger implements Runnable {
+@State(Scope.Benchmark)
+public class Passenger {
     private String flight;
     private ConcurrentHashMap<String, FlightDetails> concurrentHashMap;
-
-    void initBenchMark(String flight, ConcurrentHashMap<String ,FlightDetails> concurrentHashMap){
-        this.flight = flight;
-        this.concurrentHashMap = concurrentHashMap;
-    }
 
     @Setup
     public void init() {
@@ -31,17 +26,9 @@ public class Passenger implements Runnable {
     }
 
     @Benchmark
+    @GroupThreads(100)
     @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public void readFlightDetails() {
         concurrentHashMap.get(flight);
-    }
-
-    @Override
-    public void run() {
-        if (Thread.interrupted()) {
-            return;
-        }
-
-        readFlightDetails();
     }
 }

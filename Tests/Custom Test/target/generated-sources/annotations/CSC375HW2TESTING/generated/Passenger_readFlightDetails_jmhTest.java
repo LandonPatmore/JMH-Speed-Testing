@@ -68,24 +68,24 @@ public final class Passenger_readFlightDetails_jmhTest {
         }
         if (threadParams.getSubgroupIndex() == 0) {
             RawResults res = new RawResults();
-            Passenger_jmhType l_passenger0_0 = _jmh_tryInit_f_passenger0_0(control);
+            Passenger_jmhType l_passenger0_G = _jmh_tryInit_f_passenger0_G(control);
 
             control.preSetup();
 
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
-                l_passenger0_0.readFlightDetails();
+                l_passenger0_G.readFlightDetails();
                 res.allOps++;
             }
 
             notifyControl.startMeasurement = true;
-            readFlightDetails_thrpt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_passenger0_0);
+            readFlightDetails_thrpt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_passenger0_G);
             notifyControl.stopMeasurement = true;
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
-                    l_passenger0_0.readFlightDetails();
+                    l_passenger0_G.readFlightDetails();
                     res.allOps++;
                 }
                 control.preTearDown();
@@ -94,7 +94,30 @@ public final class Passenger_readFlightDetails_jmhTest {
             }
 
             if (control.isLastIteration()) {
-                f_passenger0_0 = null;
+                if (Passenger_jmhType.tearTrialMutexUpdater.compareAndSet(l_passenger0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (l_passenger0_G.readyTrial) {
+                            l_passenger0_G.readyTrial = false;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        Passenger_jmhType.tearTrialMutexUpdater.set(l_passenger0_G, 0);
+                    }
+                } else {
+                    long l_passenger0_G_backoff = 1;
+                    while (Passenger_jmhType.tearTrialMutexUpdater.get(l_passenger0_G) == 1) {
+                        TimeUnit.MILLISECONDS.sleep(l_passenger0_G_backoff);
+                        l_passenger0_G_backoff = Math.max(1024, l_passenger0_G_backoff * 2);
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
+                synchronized(this.getClass()) {
+                    f_passenger0_G = null;
+                }
             }
             res.allOps += res.measuredOps;
             int batchSize = iterationParams.getBatchSize();
@@ -111,12 +134,12 @@ public final class Passenger_readFlightDetails_jmhTest {
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void readFlightDetails_thrpt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, Passenger_jmhType l_passenger0_0) throws Throwable {
+    public static void readFlightDetails_thrpt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, Passenger_jmhType l_passenger0_G) throws Throwable {
         long operations = 0;
         long realTime = 0;
         result.startTime = System.nanoTime();
         do {
-            l_passenger0_0.readFlightDetails();
+            l_passenger0_G.readFlightDetails();
             operations++;
         } while(!control.isDone);
         result.stopTime = System.nanoTime();
@@ -135,24 +158,24 @@ public final class Passenger_readFlightDetails_jmhTest {
         }
         if (threadParams.getSubgroupIndex() == 0) {
             RawResults res = new RawResults();
-            Passenger_jmhType l_passenger0_0 = _jmh_tryInit_f_passenger0_0(control);
+            Passenger_jmhType l_passenger0_G = _jmh_tryInit_f_passenger0_G(control);
 
             control.preSetup();
 
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
-                l_passenger0_0.readFlightDetails();
+                l_passenger0_G.readFlightDetails();
                 res.allOps++;
             }
 
             notifyControl.startMeasurement = true;
-            readFlightDetails_avgt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_passenger0_0);
+            readFlightDetails_avgt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_passenger0_G);
             notifyControl.stopMeasurement = true;
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
-                    l_passenger0_0.readFlightDetails();
+                    l_passenger0_G.readFlightDetails();
                     res.allOps++;
                 }
                 control.preTearDown();
@@ -161,7 +184,30 @@ public final class Passenger_readFlightDetails_jmhTest {
             }
 
             if (control.isLastIteration()) {
-                f_passenger0_0 = null;
+                if (Passenger_jmhType.tearTrialMutexUpdater.compareAndSet(l_passenger0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (l_passenger0_G.readyTrial) {
+                            l_passenger0_G.readyTrial = false;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        Passenger_jmhType.tearTrialMutexUpdater.set(l_passenger0_G, 0);
+                    }
+                } else {
+                    long l_passenger0_G_backoff = 1;
+                    while (Passenger_jmhType.tearTrialMutexUpdater.get(l_passenger0_G) == 1) {
+                        TimeUnit.MILLISECONDS.sleep(l_passenger0_G_backoff);
+                        l_passenger0_G_backoff = Math.max(1024, l_passenger0_G_backoff * 2);
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
+                synchronized(this.getClass()) {
+                    f_passenger0_G = null;
+                }
             }
             res.allOps += res.measuredOps;
             int batchSize = iterationParams.getBatchSize();
@@ -178,12 +224,12 @@ public final class Passenger_readFlightDetails_jmhTest {
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void readFlightDetails_avgt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, Passenger_jmhType l_passenger0_0) throws Throwable {
+    public static void readFlightDetails_avgt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, Passenger_jmhType l_passenger0_G) throws Throwable {
         long operations = 0;
         long realTime = 0;
         result.startTime = System.nanoTime();
         do {
-            l_passenger0_0.readFlightDetails();
+            l_passenger0_G.readFlightDetails();
             operations++;
         } while(!control.isDone);
         result.stopTime = System.nanoTime();
@@ -202,14 +248,14 @@ public final class Passenger_readFlightDetails_jmhTest {
         }
         if (threadParams.getSubgroupIndex() == 0) {
             RawResults res = new RawResults();
-            Passenger_jmhType l_passenger0_0 = _jmh_tryInit_f_passenger0_0(control);
+            Passenger_jmhType l_passenger0_G = _jmh_tryInit_f_passenger0_G(control);
 
             control.preSetup();
 
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
-                l_passenger0_0.readFlightDetails();
+                l_passenger0_G.readFlightDetails();
                 res.allOps++;
             }
 
@@ -218,12 +264,12 @@ public final class Passenger_readFlightDetails_jmhTest {
             int batchSize = iterationParams.getBatchSize();
             int opsPerInv = benchmarkParams.getOpsPerInvocation();
             SampleBuffer buffer = new SampleBuffer();
-            readFlightDetails_sample_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, buffer, targetSamples, opsPerInv, batchSize, l_passenger0_0);
+            readFlightDetails_sample_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, buffer, targetSamples, opsPerInv, batchSize, l_passenger0_G);
             notifyControl.stopMeasurement = true;
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
-                    l_passenger0_0.readFlightDetails();
+                    l_passenger0_G.readFlightDetails();
                     res.allOps++;
                 }
                 control.preTearDown();
@@ -232,7 +278,30 @@ public final class Passenger_readFlightDetails_jmhTest {
             }
 
             if (control.isLastIteration()) {
-                f_passenger0_0 = null;
+                if (Passenger_jmhType.tearTrialMutexUpdater.compareAndSet(l_passenger0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (l_passenger0_G.readyTrial) {
+                            l_passenger0_G.readyTrial = false;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        Passenger_jmhType.tearTrialMutexUpdater.set(l_passenger0_G, 0);
+                    }
+                } else {
+                    long l_passenger0_G_backoff = 1;
+                    while (Passenger_jmhType.tearTrialMutexUpdater.get(l_passenger0_G) == 1) {
+                        TimeUnit.MILLISECONDS.sleep(l_passenger0_G_backoff);
+                        l_passenger0_G_backoff = Math.max(1024, l_passenger0_G_backoff * 2);
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
+                synchronized(this.getClass()) {
+                    f_passenger0_G = null;
+                }
             }
             res.allOps += res.measuredOps * batchSize;
             res.allOps *= opsPerInv;
@@ -246,7 +315,7 @@ public final class Passenger_readFlightDetails_jmhTest {
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void readFlightDetails_sample_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, SampleBuffer buffer, int targetSamples, long opsPerInv, int batchSize, Passenger_jmhType l_passenger0_0) throws Throwable {
+    public static void readFlightDetails_sample_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, SampleBuffer buffer, int targetSamples, long opsPerInv, int batchSize, Passenger_jmhType l_passenger0_G) throws Throwable {
         long realTime = 0;
         long operations = 0;
         int rnd = (int)System.nanoTime();
@@ -261,7 +330,7 @@ public final class Passenger_readFlightDetails_jmhTest {
             }
             for (int b = 0; b < batchSize; b++) {
                 if (control.volatileSpoiler) return;
-                l_passenger0_0.readFlightDetails();
+                l_passenger0_G.readFlightDetails();
             }
             if (sample) {
                 buffer.add((System.nanoTime() - time) / opsPerInv);
@@ -288,7 +357,7 @@ public final class Passenger_readFlightDetails_jmhTest {
             this.blackhole = new Blackhole("Today's password is swordfish. I understand instantiating Blackholes directly is dangerous.");
         }
         if (threadParams.getSubgroupIndex() == 0) {
-            Passenger_jmhType l_passenger0_0 = _jmh_tryInit_f_passenger0_0(control);
+            Passenger_jmhType l_passenger0_G = _jmh_tryInit_f_passenger0_G(control);
 
             control.preSetup();
 
@@ -296,11 +365,34 @@ public final class Passenger_readFlightDetails_jmhTest {
             notifyControl.startMeasurement = true;
             RawResults res = new RawResults();
             int batchSize = iterationParams.getBatchSize();
-            readFlightDetails_ss_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, batchSize, l_passenger0_0);
+            readFlightDetails_ss_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, batchSize, l_passenger0_G);
             control.preTearDown();
 
             if (control.isLastIteration()) {
-                f_passenger0_0 = null;
+                if (Passenger_jmhType.tearTrialMutexUpdater.compareAndSet(l_passenger0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (l_passenger0_G.readyTrial) {
+                            l_passenger0_G.readyTrial = false;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        Passenger_jmhType.tearTrialMutexUpdater.set(l_passenger0_G, 0);
+                    }
+                } else {
+                    long l_passenger0_G_backoff = 1;
+                    while (Passenger_jmhType.tearTrialMutexUpdater.get(l_passenger0_G) == 1) {
+                        TimeUnit.MILLISECONDS.sleep(l_passenger0_G_backoff);
+                        l_passenger0_G_backoff = Math.max(1024, l_passenger0_G_backoff * 2);
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
+                synchronized(this.getClass()) {
+                    f_passenger0_G = null;
+                }
             }
             int opsPerInv = control.benchmarkParams.getOpsPerInvocation();
             long totalOps = opsPerInv;
@@ -312,27 +404,40 @@ public final class Passenger_readFlightDetails_jmhTest {
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void readFlightDetails_ss_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, int batchSize, Passenger_jmhType l_passenger0_0) throws Throwable {
+    public static void readFlightDetails_ss_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, int batchSize, Passenger_jmhType l_passenger0_G) throws Throwable {
         long realTime = 0;
         result.startTime = System.nanoTime();
         for (int b = 0; b < batchSize; b++) {
             if (control.volatileSpoiler) return;
-            l_passenger0_0.readFlightDetails();
+            l_passenger0_G.readFlightDetails();
         }
         result.stopTime = System.nanoTime();
         result.realTime = realTime;
     }
 
     
-    Passenger_jmhType f_passenger0_0;
+    static volatile Passenger_jmhType f_passenger0_G;
     
-    Passenger_jmhType _jmh_tryInit_f_passenger0_0(InfraControl control) throws Throwable {
-        if (control.isFailing) throw new FailureAssistException();
-        Passenger_jmhType val = f_passenger0_0;
-        if (val == null) {
+    Passenger_jmhType _jmh_tryInit_f_passenger0_G(InfraControl control) throws Throwable {
+        Passenger_jmhType val = f_passenger0_G;
+        if (val != null) {
+            return val;
+        }
+        synchronized(this.getClass()) {
+            try {
+            if (control.isFailing) throw new FailureAssistException();
+            val = f_passenger0_G;
+            if (val != null) {
+                return val;
+            }
             val = new Passenger_jmhType();
             val.init();
-            f_passenger0_0 = val;
+            val.readyTrial = true;
+            f_passenger0_G = val;
+            } catch (Throwable t) {
+                control.isFailing = true;
+                throw t;
+            }
         }
         return val;
     }

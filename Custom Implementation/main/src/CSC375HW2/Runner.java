@@ -2,7 +2,7 @@ package CSC375HW2;
 
 import java.util.Random;
 
-public class Runner {
+class Runner {
 
     public static void main(String[] args) {
         HashTable h = new HashTable();

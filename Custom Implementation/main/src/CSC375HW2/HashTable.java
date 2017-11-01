@@ -8,22 +8,23 @@ import java.util.concurrent.atomic.AtomicInteger;
 class HashTable {
     private FlightDetails[] HT;
     private int tableSize = 200;
-    private AtomicInteger count = new AtomicInteger(0);
-    private int trueTableSize;
+    private AtomicInteger count;
+    private ReadWriteLock lock;
 
     /**
      * Creates array of Flights
      */
     HashTable() {
-        trueTableSize = nextPrime(tableSize);
-        HT = new FlightDetails[nextPrime(trueTableSize)];
+        HT = new FlightDetails[nextPrime(tableSize)];
+        count = new AtomicInteger(0);
+        lock = new ReadWriteLock();
     }
 
     /**
      * @param flightDetails takes a FlightDetail to put into the HashTable
      */
     void put(FlightDetails flightDetails) {
-        ReadWriteLock.lockWrite();
+        lock.lockWrite();
 
         Hashing h = new Hashing(flightDetails.getFlightIdentification());
 
@@ -37,7 +38,7 @@ class HashTable {
             HT[hash].setNext(flightDetails);
         }
 
-        ReadWriteLock.unlockWrite();
+        lock.unlockWrite();
     }
 
     /**
@@ -45,12 +46,12 @@ class HashTable {
      * @return either FlightDetails object or null
      */
     FlightDetails get(String flight) {
-        ReadWriteLock.lockRead();
+        lock.lockRead();
         Hashing h = new Hashing(flight);
         int hash = h.hasher() % nextPrime(tableSize);
 
         if (indexEmpty(hash)) {
-            ReadWriteLock.unlockRead();
+            lock.unlockRead();
             return null;
         }
 
@@ -59,11 +60,11 @@ class HashTable {
         while (!indexEmpty(hash) && !head.getFlightIdentification().equals(flight)) {
             head = head.getNext();
             if (head == null) {
-                ReadWriteLock.unlockRead();
+                lock.unlockRead();
                 return null;
             }
         }
-        ReadWriteLock.unlockRead();
+        lock.unlockRead();
         return head;
     }
 
@@ -74,21 +75,21 @@ class HashTable {
      */
     void changeFlightDetails(String flight, FlightStatus flightStatus, int controllerNumber) {
         FlightDetails changedFlight = get(flight);
-        ReadWriteLock.lockWrite();
+        lock.lockWrite();
 
         if (changedFlight == null) {
             System.out.println("Flight: " + flight + " could not be changed because it does not exist.");
-            ReadWriteLock.unlockWrite();
+            lock.unlockWrite();
             return;
         }
 
         if (!changedFlight.setFlightStatus(flightStatus)) {
             System.out.println("\nFlight: " + flight + " not changed because it is already: " + flightStatus + "\n");
-            ReadWriteLock.unlockWrite();
+            lock.unlockWrite();
             return;
         }
         System.out.printf("%80s %40s %40s\n", "CONTROLLER: " + controllerNumber, changedFlight.getFlightIdentification(), "CHANGED TO: " + changedFlight.getFlightStatus());
-        ReadWriteLock.unlockWrite();
+        lock.unlockWrite();
 
     }
 
@@ -128,31 +129,6 @@ class HashTable {
         for (int i = n; true; i++) {
             if (isPrime(i)) {
                 return i;
-            }
-        }
-    }
-
-    /**
-     * Auto resizes the HashTable when the HashTable is filled 0.75 or larger
-     */
-
-    private synchronized void resize() {
-        tableSize = 2 * tableSize;
-        tableSize = nextPrime(tableSize);
-        FlightDetails[] old = HT;
-
-        HT = new FlightDetails[tableSize];
-        count.set(0);
-
-        for (FlightDetails oldFlightDetails : old) {
-            if (oldFlightDetails != null) {
-                FlightDetails flightDetails = oldFlightDetails;
-                put(flightDetails);
-
-                while (flightDetails.getNext() != null) {
-                    flightDetails = flightDetails.getNext();
-                    put(flightDetails);
-                }
             }
         }
     }

@@ -7,4 +7,6 @@ inline,CSC375HW2TESTING/AirTrafficController.init
 inline,CSC375HW2TESTING/AirTrafficController.updateFlight
 inline,CSC375HW2TESTING/Passenger.init
 inline,CSC375HW2TESTING/Passenger.readFlightDetails
-inline,CSC375HW2TESTING/ProgramBenchmark.testMethod
+inline,CSC375HW2TESTING/ProgramBenchmark.init
+inline,CSC375HW2TESTING/ProgramBenchmark.read
+inline,CSC375HW2TESTING/ProgramBenchmark.write
