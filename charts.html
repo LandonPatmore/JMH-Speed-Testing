@@ -11,13 +11,23 @@
 <body>
 
     <main>
+        <div id="legend">
+            <h4>Legend</h4>
+            <ul>
+                <li>Threads: Read - 100, Write - 20</li>
+                <li>Time: Microseconds</li>
+                <li>Machines: OSX and Windows</li>
+                <li>OSX: 2.5 GHz Quad Core Intel Core i7</li>
+                <li>Windows: 2.5 GHz Quad Core Intel Core i7</li>
+            </ul>
+        </div>
         <h1>Custom Read/Write</h1>
         <canvas id="CustomTest" width="740" height="200"></canvas>
         <h1>JDK Read/Write</h1>
         <canvas id="JDKTest" width="740" height="200"></canvas>
-        <h1>Whole Program Custom</h1>
+        <h1>Showing Contention Amongst Threads (Custom)</h1>
         <canvas id="WholeCustom" width="740" height="200"></canvas>
-        <h1>Whole Program JDK</h1>
+        <h1>Showing Contention Amongst Threads (JDK)</h1>
         <canvas id="WholeJDK" width="740" height="200"></canvas>
 
     </main>
@@ -28,7 +38,7 @@
         crossorigin="anonymous"></script>
 
     <script>        
-        var dataColors = ["rgba(102,230,39,0.4)", "rgba(242,243,51,0.4)", "rgba(220,158,130,0.4)", "rgba(1,243,51,0.4)"]
+        var dataColors = ["rgba(52, 73, 94,0.4)", "rgba(230, 126, 34, 0.4)", "rgba(155, 89, 182,0.4)", "rgba(26, 188, 156,0.4)"]
 
         function drawLineChart(urls, chartId, bool) {
             var datasets = [];
@@ -117,11 +127,19 @@
             });
         }
 
-        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/Custom%20Test/jmh-result.json?token=AVKJ6m1TxjyEJfHhn8-UI2XfAdh3aasCks5aAohGwA%3D%3D'], 'CustomTest', false);
-        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/JDK%20Test/jmh-result.json?token=AVKJ6hqesiN79isk5G40AV0FzHBYJzudks5aAohtwA%3D%3D'], 'JDKTest', false);
-        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/Custom%20Test/jmh-result.json?token=AVKJ6m1TxjyEJfHhn8-UI2XfAdh3aasCks5aAohGwA%3D%3D'], 'WholeCustom', true);
-        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/JDK%20Test/jmh-result.json?token=AVKJ6hqesiN79isk5G40AV0FzHBYJzudks5aAohtwA%3D%3D'], 'WholeJDK', true);
+        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/Custom%20Test/custom_osx.json?token=AVKJ6rN81-OC_XET7APAwbkqfD6x_SBoks5aAoocwA%3D%3D', 'https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/Custom%20Test/custom_windows.json?token=AVKJ6rtewczkNqyMEn2cyt02aXQTlas7ks5aAopjwA%3D%3D'], 'CustomTest', false);
+        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/JDK%20Test/jdk_osx.json?token=AVKJ6lhc8SntWhzigTKQ4XnrVxXuHpSWks5aAoqRwA%3D%3D'], 'JDKTest', false);
+        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/Custom%20Test/custom_osx.json?token=AVKJ6rN81-OC_XET7APAwbkqfD6x_SBoks5aAoocwA%3D%3D', 'https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/Custom%20Test/custom_windows.json?token=AVKJ6rtewczkNqyMEn2cyt02aXQTlas7ks5aAopjwA%3D%3D'], 'WholeCustom', true);
+        drawLineChart(['https://raw.githubusercontent.com/landonp1203/CSC375HW2/master/Tests/JDK%20Test/jdk_osx.json?token=AVKJ6lhc8SntWhzigTKQ4XnrVxXuHpSWks5aAoqRwA%3D%3D'], 'WholeJDK', true);
     </script>
+
+    <style>
+    #legend{
+        border: 1px solid black;
+        padding: 20px;
+        width: 400px;
+    }
+    </style>
 </body>
 
 </html>
