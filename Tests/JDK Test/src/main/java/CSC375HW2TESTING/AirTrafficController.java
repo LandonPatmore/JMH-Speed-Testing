@@ -31,10 +31,9 @@ public class AirTrafficController {
     public void updateFlight() {
         String randomFlight = flights[r.nextInt(flights.length)];
         FlightStatus status = FlightStatus.values()[new Random().nextInt(FlightStatus.values().length)];
-        FlightDetails flightToBeUpdated = concurrentHashMap.get(randomFlight);
-        flightToBeUpdated.setFlightStatus(status);
+        FlightDetails flightToBeUpdated = new FlightDetails(randomFlight, status);
 
-        concurrentHashMap.replace(randomFlight, flightToBeUpdated);
+        concurrentHashMap.put(randomFlight, flightToBeUpdated);
     }
 }
 

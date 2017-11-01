@@ -20,7 +20,7 @@ public class ProgramBenchmark {
 
     @Benchmark
     @GroupThreads(20)
-    @Group("ReadWrite")
+    @Group("ReadWrite")s
     @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public void write(){
         String randomFlight = flights[r.nextInt(flights.length)];

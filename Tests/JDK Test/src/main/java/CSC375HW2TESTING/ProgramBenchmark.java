@@ -35,6 +35,7 @@ import org.openjdk.jmh.annotations.*;
 
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
 public class ProgramBenchmark {
@@ -52,11 +53,11 @@ public class ProgramBenchmark {
     @Benchmark
     @GroupThreads(20)
     @Group("ReadWrite")
+    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public void write(){
         String randomFlight = flights[r.nextInt(flights.length)];
         FlightStatus status = FlightStatus.values()[new Random().nextInt(FlightStatus.values().length)];
-        FlightDetails flightToBeUpdated = concurrentHashMap.get(randomFlight);
-        flightToBeUpdated.setFlightStatus(status);
+        FlightDetails flightToBeUpdated = new FlightDetails(randomFlight, status);
 
         concurrentHashMap.replace(randomFlight, flightToBeUpdated);
     }
@@ -64,6 +65,7 @@ public class ProgramBenchmark {
     @Benchmark
     @GroupThreads(100)
     @Group("ReadWrite")
+    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public void read(){
         String flight = flights[r.nextInt(flights.length)];
         concurrentHashMap.get(flight);

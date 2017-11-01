@@ -8,16 +8,4 @@ class FlightDetails {
         this.flightIdentification = k;
         this.flightStatus = v;
     }
-
-    public void setFlightStatus(FlightStatus flightStatus) {
-        this.flightStatus = flightStatus;
-    }
-
-    String getFlightIdentification() {
-        return flightIdentification;
-    }
-
-    FlightStatus getFlightStatus() {
-        return flightStatus;
-    }
 }
