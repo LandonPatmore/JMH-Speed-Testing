@@ -1,7 +1,7 @@
 [
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "Write (Mac)",
+        "benchmark" : "Write (Mac) Custom",
         "mode" : "thrpt",
         "threads" : 20,
         "forks" : 10,
@@ -264,7 +264,7 @@
     },
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "Read (Mac)",
+        "benchmark" : "Read (Mac) Custom",
         "mode" : "thrpt",
         "threads" : 100,
         "forks" : 10,
@@ -527,7 +527,7 @@
     },
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "Read/Write Overall (Mac)",
+        "benchmark" : "Read/Write (Mac) Custom",
         "mode" : "thrpt",
         "threads" : 120,
         "forks" : 10,
