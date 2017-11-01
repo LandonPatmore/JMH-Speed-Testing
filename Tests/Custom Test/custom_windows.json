@@ -1,7 +1,7 @@
 [
     {
         "jmhVersion" : "1.19",
-        "benchmark" : "Update (Windows) Custom",
+        "benchmark" : "Write (Windows) Custom",
         "mode" : "thrpt",
         "threads" : 20,
         "forks" : 10,
