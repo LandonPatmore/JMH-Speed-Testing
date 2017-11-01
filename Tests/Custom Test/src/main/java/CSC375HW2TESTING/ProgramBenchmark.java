@@ -3,6 +3,7 @@ package CSC375HW2TESTING;
 import org.openjdk.jmh.annotations.*;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
 public class ProgramBenchmark {
@@ -20,6 +21,7 @@ public class ProgramBenchmark {
     @Benchmark
     @GroupThreads(20)
     @Group("ReadWrite")
+    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public void write(){
         String randomFlight = flights[r.nextInt(flights.length)];
         FlightStatus status = FlightStatus.values()[new Random().nextInt(FlightStatus.values().length)];
@@ -30,6 +32,7 @@ public class ProgramBenchmark {
     @Benchmark
     @GroupThreads(100)
     @Group("ReadWrite")
+    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public void read(){
         String flight = flights[r.nextInt(flights.length)];
         h.get(flight);
